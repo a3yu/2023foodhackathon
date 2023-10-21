@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
+                <TableRow className="hover:bg-gray-200"
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
@@ -111,12 +111,13 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4"> 
         <Button
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+          className="hover:bg-gray-200"
         >
           Previous
         </Button>
@@ -125,7 +126,8 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-        >
+          className="hover:bg-gray-200"
+        > 
           Next
         </Button>
       </div>
