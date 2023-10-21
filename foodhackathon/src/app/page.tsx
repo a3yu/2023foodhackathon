@@ -1,7 +1,9 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, SignOutButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import farm from "./image.jpg";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -11,25 +13,12 @@ export const metadata: Metadata = {
 export default function AuthenticationPage() {
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/authentication-light.png"
-          width={1280}
-          height={843}
-          alt="Authentication"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/authentication-dark.png"
-          width={1280}
-          height={843}
-          alt="Authentication"
-          className="hidden dark:block"
-        />
-      </div>
-      <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-          <div className="absolute inset-0 bg-zinc-900" />
+          <div className="absolute inset-0 bg-zinc-900">
+            <div className=" inset-0 bg-black opacity-50"></div>
+            <Image src={farm} alt="" layout="fill" className=" bg-black" />
+          </div>
           <div className="relative z-20 flex items-center text-lg font-medium">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -43,31 +32,22 @@ export default function AuthenticationPage() {
             >
               <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
             </svg>
-            Acme Inc
-          </div>
-          <div className="relative z-20 mt-auto">
-            <blockquote className="space-y-2">
-              <p className="text-lg">
-                &ldquo;This library has saved me countless hours of work and
-                helped me deliver stunning designs to my clients faster than
-                ever before.&rdquo;
-              </p>
-              <footer className="text-sm">Sofia Davis</footer>
-            </blockquote>
+            Foodify
           </div>
         </div>
         <div className="lg:p-8">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
             <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">
-                Create an account
+              <h1 className="text-3xl font-semibold tracking-tight my-6">
+                Foodify - Food for everyone
               </h1>
-              <button>
-                <SignUpButton mode="modal">Sign In</SignUpButton>
-              </button>
-              <p className="text-sm text-muted-foreground">
-                Enter your email below to create your account
-              </p>
+              <SignInButton mode="modal">
+                <Button>Sign In</Button>
+              </SignInButton>
+              <p className="text-sm text-muted-foreground">or</p>
+              <SignUpButton mode="modal" redirectUrl="/userselect">
+                <Button>Sign Up</Button>
+              </SignUpButton>
             </div>
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
