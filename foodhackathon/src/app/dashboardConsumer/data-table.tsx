@@ -93,6 +93,7 @@ export function DataTable<TData, TValue>({
       vendor: "N/A",
       dateAccepted: "N/A",
       status: "Available",
+      buyer: "Winfrey Highschool",
       left: false,
     };
     addDoc(collection(db, "contracts"), newData).then(() => {
