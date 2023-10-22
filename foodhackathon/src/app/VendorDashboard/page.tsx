@@ -53,7 +53,7 @@ export default function DemoPage() {
                 Foodify
             </h1>
         </div> */}
-      <div className="bg-white">
+      <div className="bg-white h-screen">
         <div className="border-gray-200 mb-6 pb-2 bg-white border-b-2">
           <div className="float-right m-4 mr-8">
             <UserButton afterSignOutUrl="/" />
@@ -107,7 +107,7 @@ export default function DemoPage() {
           <Card className="w-3/4 ml-16">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Contract Views
+                Contract Partners
               </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,9 +125,9 @@ export default function DemoPage() {
               </svg>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+1350</div>
+              <div className="text-2xl font-bold">+17</div>
               <p className="text-xs text-muted-foreground">
-                +99.1% from last month
+                +4 from last month
               </p>
             </CardContent>
           </Card>
@@ -159,9 +159,7 @@ export default function DemoPage() {
           </Card>
           <Card className="w-3/4">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Contracts in Progress
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Revenue</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -176,9 +174,9 @@ export default function DemoPage() {
               </svg>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2</div>
+              <div className="text-2xl font-bold">$12,820</div>
               <p className="text-xs text-muted-foreground">
-                3 completed next month
+                +99.2% from last month
               </p>
             </CardContent>
           </Card>
