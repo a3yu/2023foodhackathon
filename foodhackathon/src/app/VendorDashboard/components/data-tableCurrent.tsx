@@ -1,8 +1,8 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   ColumnDef,
@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -23,21 +23,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
 
 export function DataTableCurrent<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
+  );
 
   const table = useReactTable({
     data,
@@ -49,18 +49,36 @@ export function DataTableCurrent<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     state: {
+<<<<<<< HEAD
+=======
+      columnVisibility: {
+        buyer: false,
+        dateAccepted: false,
+        completedOrTerminatedDate: false,
+        value: false,
+        cropType: false,
+        productQuantity: false,
+      },
+>>>>>>> d10640bb9f5e84893ebe435c049dbc5a6a5dcc23
       sorting,
       columnFilters,
     },
-  })
+  });
 
   return (
     <div>
+<<<<<<< HEAD
             <div className="flex items-center py-2 justify-end ">
               <h1 className="container px-0 text-2xl font-normal">My Contracts</h1>
+=======
+      <div className="flex items-center py-2 justify-end ">
+        <h1 className="container mx-auto text-2xl font-normal">My Contracts</h1>
+>>>>>>> d10640bb9f5e84893ebe435c049dbc5a6a5dcc23
         <Input
           placeholder="Filter Contracts by Name..."
-          value={(table.getColumn("contractName")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("contractName")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
             table.getColumn("contractName")?.setFilterValue(event.target.value)
           }
@@ -82,7 +100,7 @@ export function DataTableCurrent<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -97,14 +115,20 @@ export function DataTableCurrent<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -113,7 +137,8 @@ export function DataTableCurrent<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <Button className="hover:bg-gray-200"
+        <Button
+          className="hover:bg-gray-200"
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
@@ -121,7 +146,8 @@ export function DataTableCurrent<TData, TValue>({
         >
           Previous
         </Button>
-        <Button className="hover:bg-gray-200"
+        <Button
+          className="hover:bg-gray-200"
           variant="outline"
           size="sm"
           onClick={() => table.nextPage()}
@@ -131,5 +157,5 @@ export function DataTableCurrent<TData, TValue>({
         </Button>
       </div>
     </div>
-  )
+  );
 }
