@@ -7,6 +7,7 @@ import { NextResponse } from "next/server";
 export default authMiddleware({
   publicRoutes: ["/"],
   afterAuth(auth, req, evt) {
+    console.log(1);
     if (
       auth.userId == "user_2X5HzNONt7j0m9cG9ciaR1pUKZB" &&
       req.nextUrl.pathname != "/dashboardConsumer"
