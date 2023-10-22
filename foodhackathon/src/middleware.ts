@@ -16,9 +16,9 @@ export default authMiddleware({
     }
     if (
       auth.userId == "user_2X5IYwMWz4M5tYMRfUu47DUNTZ7" &&
-      req.nextUrl.pathname != "/hello"
+      req.nextUrl.pathname != "/dashboardConsumer"
     ) {
-      const orgSelection = new URL("/hello", req.url);
+      const orgSelection = new URL("/dashboardConsumer", req.url);
       return NextResponse.redirect(orgSelection);
     }
   },
