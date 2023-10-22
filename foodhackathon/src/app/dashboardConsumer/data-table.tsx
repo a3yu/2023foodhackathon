@@ -92,7 +92,8 @@ export function DataTable<TData, TValue>({
       ...data,
       vendor: "N/A",
       dateAccepted: "N/A",
-      status: "Pending",
+      status: "Available",
+      left: false,
     };
     addDoc(collection(db, "contracts"), newData).then(() => {
       window.location.reload();

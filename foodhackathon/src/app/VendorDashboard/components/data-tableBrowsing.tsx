@@ -56,12 +56,6 @@ export function DataTableBrowsing<TData, TValue>({
 
   return (
     <div>
-<<<<<<< HEAD
-            <div className="flex items-center py-2 justify-end ">
-              <h1 className="container px-0 text-2xl font-normal">Browse Contracts</h1>
-        <Input
-          placeholder="Filter Contracts by Crop..."
-=======
       <div className="flex items-center py-2 justify-end ">
         <h1 className="container mx-auto text-2xl font-normal">
           Browse Contracts
@@ -74,7 +68,6 @@ export function DataTableBrowsing<TData, TValue>({
           onChange={(event) =>
             table.getColumn("cropType")?.setFilterValue(event.target.value)
           }
->>>>>>> d10640bb9f5e84893ebe435c049dbc5a6a5dcc23
           className="max-w-sm"
         />
       </div>

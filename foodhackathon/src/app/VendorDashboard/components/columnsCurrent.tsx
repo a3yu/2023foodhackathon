@@ -41,7 +41,7 @@ export const columnCurrent: ColumnDef<PaymentCurrent>[] = [
       return (
         <Popover>
           <PopoverTrigger asChild>
-            <Button className="hover:bg-gray-400">
+            <Button className="hover:bg-gray-200 bg-white text-black">
               {" "}
               {row.getValue("contractName")}
             </Button>
@@ -132,7 +132,31 @@ export const columnCurrent: ColumnDef<PaymentCurrent>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="text-right font-thin">{row.getValue("status")}</div>
+        <div className="text-right font-normal">
+          <div className="text-right font-normal">
+            {row.getValue("status") === "Pending" ? (
+              <span className="border-2 border-orange-600 p-1 rounded-full bg-orange-600 text-white font-semibold">
+                {row.getValue("status")}
+              </span>
+            ) : row.getValue("status") === "Complete" ? (
+              <span className="border-2 border-green-500 p-1 rounded-full bg-green-500 text-white font-semibold">
+                {row.getValue("status")}
+              </span>
+            ) : row.getValue("status") === "Available" ? (
+              <span className="border-2 border-yellow-400 p-1 rounded-full bg-yellow-400 text-white font-semibold">
+                {row.getValue("status")}
+              </span>
+            ) : row.getValue("status") === "Terminated" ? (
+              <span className="border-2 border-red-500 p-1 rounded-full bg-red-500 text-white font-semibold">
+                {row.getValue("status")}
+              </span>
+            ) : (
+              <span className="border-2 border-gray-500 p-1 rounded-full bg-gray-500 text-white font-semibold">
+                {row.getValue("status")}
+              </span>
+            )}
+          </div>
+        </div>
       );
     },
   },

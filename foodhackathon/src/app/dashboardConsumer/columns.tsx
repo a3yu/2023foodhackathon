@@ -4,17 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Payment = {
   contractName: string;
   value: String;
@@ -22,7 +11,7 @@ export type Payment = {
   dateAccepted: String;
   endDate: String;
   crop: string;
-  status: "Accepted" | "Pending" | "Complete" | "Terminated";
+  status: String;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -42,10 +31,6 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "endDate",
     header: "CT Date",
   },
-  // {
-  //   accessorKey: "value",
-  //   header: "Value",
-  // },
   {
     accessorKey: "value",
     header: "Value",
@@ -73,15 +58,15 @@ export const columns: ColumnDef<Payment>[] = [
       return (
         <div className="text-right font-normal">
           <div className="text-right font-normal">
-            {row.getValue("status") === "Accepted" ? (
-              <span className="border-2 border-green-500 p-1 rounded-full bg-green-500 text-white font-semibold">
+            {row.getValue("status") === "Pending" ? (
+              <span className="border-2 border-orange-600 p-1 rounded-full bg-orange-600 text-white font-semibold">
                 {row.getValue("status")}
               </span>
             ) : row.getValue("status") === "Complete" ? (
               <span className="border-2 border-green-500 p-1 rounded-full bg-green-500 text-white font-semibold">
                 {row.getValue("status")}
               </span>
-            ) : row.getValue("status") === "Pending" ? (
+            ) : row.getValue("status") === "Available" ? (
               <span className="border-2 border-yellow-400 p-1 rounded-full bg-yellow-400 text-white font-semibold">
                 {row.getValue("status")}
               </span>
@@ -99,36 +84,4 @@ export const columns: ColumnDef<Payment>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "options",
-  //   header: "options",
-  // },
-  // {
-  //   id: "options",
-  //   cell: ({ row }) => {
-  //     const payment = row.original
-
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <MoreHorizontal className="h-4 w-4" />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem
-  //             onClick={() => navigator.clipboard.writeText(payment.options)}
-  //           >
-  //             Copy payment ID
-  //           </DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View customer</DropdownMenuItem>
-  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     )
-  //   },
-  // },
 ];

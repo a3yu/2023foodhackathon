@@ -19,19 +19,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { db } from "@/firebase/firebase";
+import { useEffect } from "react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type PaymentBrowsing = {
-<<<<<<< HEAD
-  contractName: string;
-  value: String;
-  vendor: string;
-  dateAccepted: String;
-  endDate: String;
-  crop: string;
-  status: "Accepted" | "Pending" | "Complete" | "Terminated";
-=======
   contractName: String;
   value: String;
   buyer: string;
@@ -39,7 +43,6 @@ export type PaymentBrowsing = {
   completedOrTerminatedDate: String;
   cropType: String;
   productQuantity: String;
->>>>>>> d10640bb9f5e84893ebe435c049dbc5a6a5dcc23
 };
 
 export const columnBrowsing: ColumnDef<PaymentBrowsing>[] = [
@@ -47,25 +50,29 @@ export const columnBrowsing: ColumnDef<PaymentBrowsing>[] = [
     accessorKey: "contractName",
     header: () => <div className="text-left">Contract Name</div>,
     cell: ({ row }) => {
-<<<<<<< HEAD
-
-        return (
-            <Popover >
-            <PopoverTrigger asChild>
-                <Button className="hover:bg-gray-400 bg-white text-black"> {row.getValue("contractName") }</Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80 bg-white ml-28">
-                <div className="grid gap-4">
-                <div className="space-y-2">
-                    <h4 className="font-medium leading-none">{row.getValue("buyer")}</h4>
-                    <p className="text-sm text-muted-foreground">
-                        <div>{row.getValue("contractName")}</div>
-                    </p>
-=======
+      function sendData(data: any) {
+        const ref = query(
+          collection(db, "contracts"),
+          where("contractName", "==", data),
+          limit(1)
+        );
+        async function A() {
+          const doc = await getDocs(ref);
+          doc.forEach(async (doc) => {
+            await updateDoc(doc.ref, {
+              left: true,
+              status: "Pending",
+            }).then(() => {
+              window.location.reload();
+            });
+          });
+        }
+        A();
+      }
       return (
         <Popover>
           <PopoverTrigger asChild>
-            <Button className="hover:bg-gray-400">
+            <Button className="hover:bg-gray-200 bg-white text-black">
               {" "}
               {row.getValue("contractName")}
             </Button>
@@ -95,11 +102,13 @@ export const columnBrowsing: ColumnDef<PaymentBrowsing>[] = [
                     <Button
                       className="hover hover: bg-green-200"
                       variant="outline"
+                      onClick={() => {
+                        sendData(row.getValue("contractName"));
+                      }}
                     >
                       Accept
                     </Button>
                   </div>
->>>>>>> d10640bb9f5e84893ebe435c049dbc5a6a5dcc23
                 </div>
               </div>
             </div>
@@ -107,78 +116,6 @@ export const columnBrowsing: ColumnDef<PaymentBrowsing>[] = [
         </Popover>
       );
     },
-<<<<<<< HEAD
-    {
-      accessorKey: "contractName",
-      header: () => <div className="text-left">Contract Name</div>,
-    },
-    {
-      accessorKey: "vendor",
-      header: "Vendor",
-    },
-    {
-      accessorKey: "dateAccepted",
-      header: "Date Accepted",
-    },
-    {
-      accessorKey: "endDate",
-      header: "CT Date",
-    },
-    {
-      accessorKey: "value",
-      header: "Value",
-    },
-    {
-      accessorKey: "crop",
-      header: "Crop",
-    },
-    {
-      accessorKey: "status",
-      header: ({ column }) => {
-        return (
-          <div className="text-right">
-            <Button
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-              Status
-              <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        );
-      },
-      cell: ({ row }) => {
-        return (
-          <div className="text-right font-normal">
-            <div className="text-right font-normal">
-              {row.getValue("status") === "Accepted" ? (
-                <span className="border-2 border-green-500 p-1 rounded-full bg-green-500 text-white font-semibold">
-                  {row.getValue("status")}
-                </span>
-              ) : row.getValue("status") === "Complete" ? (
-                <span className="border-2 border-green-500 p-1 rounded-full bg-green-500 text-white font-semibold">
-                  {row.getValue("status")}
-                </span>
-              ) : row.getValue("status") === "Pending" ? (
-                <span className="border-2 border-yellow-400 p-1 rounded-full bg-yellow-400 text-white font-semibold">
-                  {row.getValue("status")}
-                </span>
-              ) : row.getValue("status") === "Terminated" ? (
-                <span className="border-2 border-red-500 p-1 rounded-full bg-red-500 text-white font-semibold">
-                  {row.getValue("status")}
-                </span>
-              ) : (
-                <span className="border-2 border-gray-500 p-1 rounded-full bg-gray-500 text-white font-semibold">
-                  {row.getValue("status")}
-                </span>
-              )}
-            </div>
-          </div>
-        );
-      },
-    }
-]
-=======
   },
   {
     accessorKey: "crop",
@@ -189,7 +126,7 @@ export const columnBrowsing: ColumnDef<PaymentBrowsing>[] = [
     header: "Product Quantity",
   },
   {
-    accessorKey: "vendor",
+    accessorKey: "buyer",
     header: "Buyer",
   },
   {
@@ -201,4 +138,3 @@ export const columnBrowsing: ColumnDef<PaymentBrowsing>[] = [
     header: "Payout",
   },
 ];
->>>>>>> d10640bb9f5e84893ebe435c049dbc5a6a5dcc23

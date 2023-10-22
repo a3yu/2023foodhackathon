@@ -10,9 +10,9 @@ export default authMiddleware({
     console.log(1);
     if (
       auth.userId == "user_2X5HzNONt7j0m9cG9ciaR1pUKZB" &&
-      req.nextUrl.pathname != "/dashboardConsumer"
+      req.nextUrl.pathname != "/VendorDashboard"
     ) {
-      const orgSelection = new URL("/dashboardConsumer", req.url);
+      const orgSelection = new URL("/VendorDashboard", req.url);
       return NextResponse.redirect(orgSelection);
     }
     if (
