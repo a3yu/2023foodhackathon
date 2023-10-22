@@ -57,7 +57,7 @@ export function DataTableBrowsing<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-2 justify-end ">
-        <h1 className="container mx-auto text-2xl font-bold">
+        <h1 className="container mx-auto text-2xl -ml-7 font-bold">
           Browse Contracts
         </h1>
         <Input
