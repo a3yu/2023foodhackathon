@@ -65,7 +65,7 @@ export function DataTableCurrent<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-2 justify-end ">
-        <h1 className="container mx-auto text-2xl font-normal">My Contracts</h1>
+        <h1 className="container mx-auto text-2xl font-bold">My Contracts</h1>
         <Input
           placeholder="Filter Contracts by Name..."
           value={

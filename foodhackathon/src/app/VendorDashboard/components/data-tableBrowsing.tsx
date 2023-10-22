@@ -57,7 +57,7 @@ export function DataTableBrowsing<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-2 justify-end ">
-        <h1 className="container mx-auto text-2xl font-normal">
+        <h1 className="container mx-auto text-2xl font-bold">
           Browse Contracts
         </h1>
         <Input
@@ -100,7 +100,7 @@ export function DataTableBrowsing<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="font-normal">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
