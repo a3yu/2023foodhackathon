@@ -11,9 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { columnBrowsing } from "./components/columnBrowsing";
 import { DataTableBrowsing } from "./components/data-tableBrowsing";
 import { DataTableCurrent } from "./components/data-tableCurrent";
-import { columns } from "./components/columns";
+import { columnCurrent } from "./components/columnsCurrent";
 
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -187,14 +188,14 @@ export default function DemoPage() {
         <div className="flow-root py-5">
           <Card className="container ml-24 font-thin text-justify bg-white w-7/12 float-left ">
             {data ? (
-              <DataTableBrowsing columns={columns} data={data} />
+              <DataTableBrowsing columns={columnBrowsing} data={data} />
             ) : (
               <p>Loading data...</p>
             )}
           </Card>
           <Card className="container mr-24 font-thin text-justify bg-white w-1/4 float-right">
             {dataRight ? (
-              <DataTableCurrent columns={columns} data={dataRight} />
+              <DataTableCurrent columns={columnCurrent} data={dataRight} />
             ) : (
               <p>Loading data...</p>
             )}
