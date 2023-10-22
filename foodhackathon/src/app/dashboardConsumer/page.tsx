@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import PopupForm from "./popup"; // Import the PopupForm component
 import { Payment, columns } from "./columns";
 import { DataTable } from "./data-table";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { Bar, BarChart, Line, LineChart, ResponsiveContainer } from "recharts";
 import { UserButton } from "@clerk/nextjs";
@@ -18,7 +18,11 @@ import {
 } from "@/components/ui/card";
 
 async function getData() {
-  const getFood = await getDocs(collection(db, "contracts"));
+  const q = query(
+    collection(db, "contracts"),
+    where("buyer", "==", "Winfrey School")
+  );
+  const getFood = await getDocs(q);
   return getFood;
 }
 
