@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider, SignIn } from "@clerk/nextjs";
+import { ClerkProvider, auth } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +15,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { userId } = auth();
+  console.log(userId);
+
   return (
     <ClerkProvider
       appearance={{
