@@ -23,16 +23,18 @@ import {
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  contractName: string
+export type PaymentBrowsing = {
+  contractName: String
   value: String 
   buyer: string
   dateAccepted: String 
   completedOrTerminatedDate: String
-  status: "Accepted" | "Pending" | "Complete" | "Terminated" 
+  cropType: String
+  productQuantity: String
+
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columnBrowsing: ColumnDef<PaymentBrowsing>[] = [
   {
     accessorKey: "contractName",  
     header: () => <div className="text-left">Contract Name</div>,
@@ -41,9 +43,9 @@ export const columns: ColumnDef<Payment>[] = [
         return (
             <Popover >
             <PopoverTrigger asChild>
-                <Button>{row.getValue("contractName")}</Button>
+                <Button className="hover:bg-gray-400"> {row.getValue("contractName") }</Button>
             </PopoverTrigger>
-            <PopoverContent className="w-80">
+            <PopoverContent className="w-80 bg-white ml-28">
                 <div className="grid gap-4">
                 <div className="space-y-2">
                     <h4 className="font-medium leading-none">{row.getValue("buyer")}</h4>
@@ -53,17 +55,15 @@ export const columns: ColumnDef<Payment>[] = [
                 </div>
                 <div className="grid gap-2">
                     <div className="grid grid-cols-3 items-center gap-4">
-                    <Label htmlFor="message">Send Message</Label>
-                    <Input
-                        id="message"
-                        className="col-span-2 h-8"
-                    />
+                    {}
                     </div>
-                    <div className="grid grid-cols-3 items-center gap-4">
-                        <Button variant="outline">Decline</Button>
+                    <div className = "flow-root">
+                    <div className="float-right">
+                        <Button className = "hover hover: bg-red-200" variant="outline">Decline</Button>
                     </div>
-                    <div className="grid grid-cols-3 items-center gap-4">
-                        <Button>Accept</Button>
+                    <div className="float-left">
+                        <Button className = "hover hover: bg-green-200"variant="outline">Accept</Button>
+                    </div>
                     </div>
                 </div>
                 </div>
@@ -73,43 +73,24 @@ export const columns: ColumnDef<Payment>[] = [
       }
     },
   {
+    accessorKey: "cropType",
+    header: "Product Type"
+  },
+  {
+    accessorKey: "productQuantity", 
+    header: "Product Quantity"
+  },
+  {
     accessorKey: "buyer",
     header: "Buyer",
   },
   {
-    accessorKey: "dateAccepted",
-    header: "Date Accepted",
-  },
-  {
     accessorKey: "completedOrTerminatedDate",
-    header: "CT Date",
+    header: "Completion Date",
   },
-  // {
-  //   accessorKey: "value",
-  //   header: "Value",
-  // },
   {
     accessorKey: "value",
-    header: "Value"
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => {
-      return (
-        <div className="text-right">
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-        </div>
-      )
-    },
-    cell: ({ row }) => {
-      return <div className="text-right font-thin">{row.getValue("status")}</div>
-    }
+    header: "Payout"
   },
   // {
   //   accessorKey: "options",

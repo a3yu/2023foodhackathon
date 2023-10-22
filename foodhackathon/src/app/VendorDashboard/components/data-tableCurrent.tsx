@@ -30,7 +30,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
+export function DataTableCurrent<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -49,6 +49,7 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     state: {
+      columnVisibility: {"buyer": false, "dateAccepted": false, "completedOrTerminatedDate": false, "value": false, "cropType" : false, "productQuantity": false},
       sorting,
       columnFilters,
     },
@@ -57,9 +58,9 @@ export function DataTable<TData, TValue>({
   return (
     <div>
             <div className="flex items-center py-2 justify-end ">
-              <h1 className="container mx-auto text-2xl font-normal">Current Contracts</h1>
+              <h1 className="container mx-auto text-2xl font-normal">My Contracts</h1>
         <Input
-          placeholder="Filter Contracts..."
+          placeholder="Filter Contracts by Name..."
           value={(table.getColumn("contractName")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("contractName")?.setFilterValue(event.target.value)
@@ -91,6 +92,7 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                  className="hover:bg-gray-200"
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
@@ -112,7 +114,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
+        <Button className="hover:bg-gray-200"
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
@@ -120,7 +122,7 @@ export function DataTable<TData, TValue>({
         >
           Previous
         </Button>
-        <Button
+        <Button className="hover:bg-gray-200"
           variant="outline"
           size="sm"
           onClick={() => table.nextPage()}
