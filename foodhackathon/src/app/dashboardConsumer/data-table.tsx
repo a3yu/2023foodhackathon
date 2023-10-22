@@ -78,6 +78,8 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
   });
+  console.log(123);
+  console.log(data);
 
   const {
     register,

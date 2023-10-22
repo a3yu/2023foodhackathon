@@ -29,7 +29,6 @@ export type PaymentCurrent = {
   buyer: string
   dateAccepted: String 
   completedOrTerminatedDate: String
-  cropType: String
   productQuantity: String
   status: "Accepted" | "Pending" | "Complete" | "Terminated" 
 }
@@ -43,7 +42,8 @@ export const columnCurrent: ColumnDef<PaymentCurrent>[] = [
             return (
                 <Popover >
                 <PopoverTrigger asChild>
-                    <Button className="hover:bg-gray-400"> {row.getValue("contractName") }</Button>
+                    <Button className="hover:bg-gray-400 bg-gray-200
+ text-black"> {row.getValue("contractName") }</Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-80 bg-white ml-60">
                     <div className="grid gap-4">
@@ -52,7 +52,6 @@ export const columnCurrent: ColumnDef<PaymentCurrent>[] = [
                         <h4 className="font-normal text-sm"><b>Date Accepted: </b>{row.getValue("dateAccepted")}</h4>
                         <h4 className="font-normal text-sm"><b>Completion Date: </b>{row.getValue("completedOrTerminatedDate")}</h4>
                         <h4 className="font-normal text-sm"><b>Payout: </b>{row.getValue("value")}</h4>
-                        <h4 className="font-normal text-sm"><b>Payout: </b>{row.getValue("cropType")}</h4>
                         <h4 className="font-normal text-sm"><b>Payout: </b>{row.getValue("productQuantity")}</h4>
                     </div>
                     <div className="grid gap-2">
@@ -84,10 +83,6 @@ export const columnCurrent: ColumnDef<PaymentCurrent>[] = [
   {
     accessorKey: "completedOrTerminatedDate",
     header: "CT Date",
-  },
-  {
-    accessorKey: "cropType",
-    header: "Product Type"
   },
   {
     accessorKey: "productQuantity", 

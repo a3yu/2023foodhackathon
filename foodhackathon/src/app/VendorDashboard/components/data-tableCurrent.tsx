@@ -49,7 +49,6 @@ export function DataTableCurrent<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     state: {
-      columnVisibility: {"buyer": false, "dateAccepted": false, "completedOrTerminatedDate": false, "value": false, "cropType" : false, "productQuantity": false},
       sorting,
       columnFilters,
     },
@@ -58,7 +57,7 @@ export function DataTableCurrent<TData, TValue>({
   return (
     <div>
             <div className="flex items-center py-2 justify-end ">
-              <h1 className="container mx-auto text-2xl font-normal">My Contracts</h1>
+              <h1 className="container px-0 text-2xl font-normal">My Contracts</h1>
         <Input
           placeholder="Filter Contracts by Name..."
           value={(table.getColumn("contractName")?.getFilterValue() as string) ?? ""}

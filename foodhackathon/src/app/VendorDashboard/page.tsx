@@ -1,7 +1,12 @@
+"use client";
+
 import Contracts from "./components/contracts";
+import React, { useState, useEffect } from "react";
 import { InteractContract } from "./components/interactcontract";
 import { MetricContract } from "./components/metric";
 import { PriceContract } from "./components/price";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 import {
     Card,
     CardContent,
@@ -16,176 +21,30 @@ import { PaymentBrowsing, columnBrowsing } from "./components/columnBrowsing";
 import { DataTableCurrent } from "./components/data-tableCurrent";
 import { DataTableBrowsing } from "./components/data-tableBrowsing";
 
-
-async function getDataCurrent(): Promise<PaymentCurrent[]> {
-  // Fetch data from your API here.
-  return [
-    {
-//         contractName: string
-//   value: String 
-//   vendor: string
-//   dateAccepted: String 
-//   completedOrTerminatedDate: String
-//   status: "Accepted" | "Pending" | "Complete" | "Terminated" 
-      contractName: "Banana",
-      value: "$3 M",
-      status: "Pending",
-      cropType: "Banana",
-      productQuantity: "10",
-      dateAccepted: "7/10/23",
-      completedOrTerminatedDate: "8/10/23",
-      buyer: "Rich Man 1"
-    },
-    {
-        contractName: "Apple",
-        value: "$4 M",
-        cropType: "Apple",
-        productQuantity: "10",
-        status: "Complete",
-        dateAccepted: "2/10/23",
-        completedOrTerminatedDate: "4/10/23",
-        buyer: "Rich Man 1"
-    },   
-  ]
-}
-
-async function getDataBrowsing(): Promise<PaymentBrowsing[]> {
-    // Fetch data from your API here.
-    return [
-      {
-        contractName: "Banana",
-        value: "$3 M",
-        dateAccepted: "7/10/23",
-        completedOrTerminatedDate: "8/10/23",
-        buyer: "Rich Man 1",
-        cropType: "Bananas", 
-        productQuantity: "1000"
-      },
-      {
-          contractName: "Apple",
-          value: "$4 M",
-          dateAccepted: "2/10/23",
-          completedOrTerminatedDate: "4/10/23",
-          buyer: "Rich Man 1",
-          cropType: "Apples", 
-          productQuantity: "1200"
-      },
-      {
-        contractName: "Banana",
-        value: "$3 M",
-        dateAccepted: "7/10/23",
-        completedOrTerminatedDate: "8/10/23",
-        buyer: "Rich Man 1",
-        cropType: "Bananas", 
-        productQuantity: "1000"
-      },
-      {
-          contractName: "Apple",
-          value: "$4 M",
-          dateAccepted: "2/10/23",
-          completedOrTerminatedDate: "4/10/23",
-          buyer: "Rich Man 1",
-          cropType: "Apples", 
-          productQuantity: "1200"
-      },
-      {
-        contractName: "Banana",
-        value: "$3 M",
-        dateAccepted: "7/10/23",
-        completedOrTerminatedDate: "8/10/23",
-        buyer: "Rich Man 1",
-        cropType: "Bananas", 
-        productQuantity: "1000"
-      },
-      {
-          contractName: "Apple",
-          value: "$4 M",
-          dateAccepted: "2/10/23",
-          completedOrTerminatedDate: "4/10/23",
-          buyer: "Rich Man 1",
-          cropType: "Apples", 
-          productQuantity: "1200"
-      },
-      {
-        contractName: "Banana",
-        value: "$3 M",
-        dateAccepted: "7/10/23",
-        completedOrTerminatedDate: "8/10/23",
-        buyer: "Rich Man 1",
-        cropType: "Bananas", 
-        productQuantity: "1000"
-      },
-      {
-          contractName: "Apple",
-          value: "$4 M",
-          dateAccepted: "2/10/23",
-          completedOrTerminatedDate: "4/10/23",
-          buyer: "Rich Man 1",
-          cropType: "Apples", 
-          productQuantity: "1200"
-      },
-      {
-        contractName: "Banana",
-        value: "$3 M",
-        dateAccepted: "7/10/23",
-        completedOrTerminatedDate: "8/10/23",
-        buyer: "Rich Man 1",
-        cropType: "Bananas", 
-        productQuantity: "1000"
-      },
-      {
-          contractName: "Apple",
-          value: "$4 M",
-          dateAccepted: "2/10/23",
-          completedOrTerminatedDate: "4/10/23",
-          buyer: "Rich Man 1",
-          cropType: "Apples", 
-          productQuantity: "1200"
-      },
-      {
-        contractName: "Banana",
-        value: "$3 M",
-        dateAccepted: "7/10/23",
-        completedOrTerminatedDate: "8/10/23",
-        buyer: "Rich Man 1",
-        cropType: "Bananas", 
-        productQuantity: "1000"
-      },
-      {
-          contractName: "Apple",
-          value: "$4 M",
-          dateAccepted: "2/10/23",
-          completedOrTerminatedDate: "4/10/23",
-          buyer: "Rich Man 1",
-          cropType: "Apples", 
-          productQuantity: "1200"
-      },
-      {
-        contractName: "Banana",
-        value: "$3 M",
-        dateAccepted: "7/10/23",
-        completedOrTerminatedDate: "8/10/23",
-        buyer: "Rich Man 1",
-        cropType: "Bananas", 
-        productQuantity: "1000"
-      },
-      {
-          contractName: "Apple",
-          value: "$4 M",
-          dateAccepted: "2/10/23",
-          completedOrTerminatedDate: "4/10/23",
-          buyer: "Rich Man 1",
-          cropType: "Apples", 
-          productQuantity: "1200"
-      },
-    ]
-  }
+export default function DemoPage() {
+  const [number, setNumber] = useState(2);
+  const [data, setData] = useState<any | null>(null);
+  const [dataBrows, setData1] = useState<any | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   
+  async function getData() {
+    const getFood = await getDocs(collection(db, "contracts"));
+    return getFood;
+  }
 
-export default async function DemoPage() {
-  const dataCurrent = await getDataCurrent()
-  const dataBrowsing = await getDataBrowsing()
+  useEffect(() => {
+    async function fetchData() {
 
+      const querySnap = await getData();
+      const contractsArray = querySnap.docs.map((doc) => doc.data());
+      setNumber(3);
+      setData(contractsArray);
+    }
+
+    fetchData();
+  }, []);
+  console.log(123);
+  console.log(data);
   return (
     <>
         {/* <div className="text-3xl mx-auto">
@@ -323,14 +182,9 @@ export default async function DemoPage() {
               </Card>
             </div>
         <div className = "flow-root py-5">
-            <Card className="container ml-24 font-thin text-justify bg-white w-7/12 float-left ">
-                <div className = "mx-2">
-                    <DataTableBrowsing columns={columnBrowsing} data={dataBrowsing} />
-                </div>
-            </Card>
             <Card className="container mr-24 font-thin text-justify bg-white w-1/4 float-right">
                 <div className = "mx-2">
-                    <DataTableCurrent columns={columnCurrent} data={dataCurrent} />
+                    <DataTableCurrent columns={columnCurrent} data={data} />
                 </div>
             </Card>
         </div>
